@@ -17,13 +17,13 @@ class Migration(migrations.Migration):
         ('restAPI', '0001_initial'),
     ]
 
-    operations = [
-        migrations.AddField(
-            model_name='customuser',
-            name='about',
-            name='joining_date',
-            field=models.DateTimeField(auto_now_add=True),
-            field=models.CharField(max_length=255, null=True, unique=True),
-        ),
-        migrations.RunPython(set_default_joining_date),
-    ]
+    # operations = [
+    #     migrations.AddField(
+    #         model_name='customuser',
+    #         name='about',
+    #         name='joining_date',
+    #         field=models.DateTimeField(auto_now_add=True),
+    #         field=models.CharField(max_length=255, null=True, unique=True),
+    #     ),
+    #     migrations.RunPython(set_default_joining_date),
+    # ]

@@ -26,7 +26,7 @@ class CustomUser(models.Model):
     country = models.CharField(max_length=255, null=True)
     avatar = models.ImageField(upload_to='media/', null=True, blank=True)
     about = models.CharField(max_length=255, unique=True, null=True)
-    joining_date = models.DateTimeField('joining date', auto_now_add=True)
+    # joining_date = models.DateTimeField('joining date', auto_now_add=True)
 
     def __str__(self):
         return self.fullName
