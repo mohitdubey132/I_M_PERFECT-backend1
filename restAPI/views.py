@@ -1,4 +1,4 @@
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -317,7 +317,7 @@ def answer_question(request):
 
 
 #-----view to GET the anwers of the questions----- 
-@api_view(['GET'])
+@api_view(['POST'])
 def getAnswersForQuestion(request):
 
     # Assuming Q_id is present in the request data
@@ -432,13 +432,30 @@ def otp_generate(request):
     email = request.data.get('email')
 
     if email is not None:
+        print('1')
 
         otp_code = str(random.randint(100000, 999999))
-
+        # otp_instance = OTP.objects.get(email=email)
+        # if otp_instance is not None:
+        #     otp_instance.delete()
+        try:
+            otp_instance = OTP.objects.get(email=email)
+            otp_instance.delete()
+            # Handle the case when OTP instance is successfully deleted
+            # return HttpResponse("OTP instance deleted successfully")
+        except ObjectDoesNotExist:
+            pass
+            # Handle the case when no OTP instance exists for the provided email
+            # return HttpResponse("No OTP instance found for the provided email")
+        
+                # otp_instance.delete()
+            # otp_instance.delete()
         # Create a dictionary with the data to be saved
+        print(2)
         data_to_save = {'otp': otp_code, 'email': email}
         # Create an instance of the serializer with the data
         deserializer = OTPSerializer(data=data_to_save)
+        print(3)
         if deserializer.is_valid():
             # Save the data to the database
             deserializer.save()
@@ -460,14 +477,18 @@ def otp_verify(request):
             otp_instance = OTP.objects.get(otp=otp_code)
              # Check if the user already exists
             user, created = CustomUser.objects.get_or_create(userName=otp_instance.email)
-            
+            refresh = RefreshToken.for_user(user)
+            data = {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+            }
+            deserializer = CustomUserSerializer(user)
             # Optionally, you can add a time check here to ensure OTP is still valid
             otp_instance.delete()
-            return Response({'detail': 'OTP verified successfully', 'User created': created}, status=status.HTTP_200_OK)
+            return Response({'detail': 'OTP verified successfully', 'User created': created  , 'token':data, 'user':deserializer.data}, status=status.HTTP_200_OK)
     
     except OTP.DoesNotExist:
         return Response({'detail': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 
