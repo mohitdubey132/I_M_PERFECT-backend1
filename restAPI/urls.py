@@ -34,4 +34,5 @@ urlpatterns = [
     path('password-reset/<str:token>/', views.password_reset_verify, name='password-reset-verify'),
     path('user-questions/<uuid:uid>/', views.AllQues_by_user, name='user-questions'),
     path('user-AllQuesAns/<uuid:uid>/', views.user_AllQues_Ans, name='user-allquestions-ans'),
+    path('update-question/<int:question_id>/', views.update_question, name='update-question'),
 ]
