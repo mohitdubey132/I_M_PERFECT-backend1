@@ -165,8 +165,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAW5Z4X54SEGYX7BHG'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'access key'
+AWS_SECRET_ACCESS_KEY = 'securte key'
 AWS_STORAGE_BUCKET_NAME = 'imperfect-bucket'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'ap-south-1'
@@ -185,7 +185,7 @@ class MediaStorage(S3Boto3Storage):
 #sending emails
 
 EMAIL_HOST='smtp.gmail.com'
-EMAIL_HOST_USER='somyanamdeo2401@gmail.com'
+EMAIL_HOST_USER='email'
 EMAIL_HOST_PASSWORD='eixfkussgnoxmmqr'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True
